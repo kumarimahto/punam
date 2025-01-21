@@ -1,0 +1,241 @@
+
+
+html {
+	box-sizing: border-box;
+  }
+  
+  *,
+  *:before,
+  *:after {
+	box-sizing: inherit;
+  }
+
+  h1{
+	color: rgb(238, 24, 60);
+	text-align: center;
+	margin-bottom: 20px;
+  }
+  
+  .chart {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+	max-width: 1240px;
+	height: 500px;
+	margin: auto;
+	background: #f9f9f9;
+	border-left: 5px solid red;
+	border-bottom: 5px solid red;
+  }
+  
+  .chart caption {
+	padding: 20px 0;
+	font-weight: bold;
+	font-size: 150%;
+	text-align: center;
+  }
+  
+  .chart td {
+	vertical-align: bottom;
+	text-align: center;
+	height: 100%;
+	/* firefox bug */
+  }
+  
+  .chart tbody td {
+	padding: 0 5px;
+  }
+  
+  .chart td span {
+	display: block;
+	background: red;
+	border: 1px solid #000;
+	box-shadow: 5px -5px 20px rgba(0, 0, 0, 0.2);
+	position: relative;
+  }
+  .chart td span b {
+	display: block;
+	color: #000;
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	right: 0;
+	text-align: center;
+  }
+  
+  .chart tbody {
+	/* a bit of eye candy but magic numberish */
+	background-image: linear-gradient(rgba(0, 0, 0, 0.1) 2px, transparent 1px);
+	background-size: 98% 45px; /* 98% should really be 100% but IE edge gets it wrong when 100% used*/
+	/* The table cell is 450px tall so the background-size is 45px allowing 10 horizontal lines in the linear gradient (each line therefore represents a 10% value) */
+  }
+  
+  .chart thead th,
+  .chart tfoot th {
+	padding: 10px 5px 20px;
+  }
+  .chart tbody td {
+	height: 450px;
+  }
+  
+  @media screen and (max-width: 601px) {
+	table.mobile-optimised {
+	  word-wrap: break-word;
+	  border-spacing: 0;
+	  height: auto;
+	}
+	table.mobile-optimised thead,
+	table.mobile-optimised tfoot {
+	  display: none;
+	}
+	table.mobile-optimised td {
+	  display: block;
+	  float: left;
+	  /* ie9 and under hack */
+	  width: 100%;
+	  clear: both;
+	  background: #f5f5f5;
+	  padding: 10px 5px;
+	  padding: 2px;
+	}
+	table.mobile-optimised tbody,
+	table.mobile-optimised tr {
+	  display: block;
+	}
+	.mobile-optimised td:before {
+	  content: attr(data-th);
+	  display: block;
+	  font-weight: bold;
+	  margin: 0 0 2px;
+	  color: #000;
+	}
+	table.mobile-optimised.chart td {
+	  text-align: left;
+	  white-space: nowrap;
+	  height: auto;
+	}
+	table.mobile-optimised.chart span {
+	  text-align: right;
+	  height: 25px !important;
+	  line-height: 25px;
+	  padding: 0 5px 0 0;
+	  position: relative;
+	  white-space: nowrap;
+	}
+	.chart td span b{display:inline;position:static;}
+	.chart tbody {
+	  background: none;
+	}
+  }
+  /* small initial animation if required */
+  .chart span {
+	opacity: 1;
+	animation: barchart 5s ease reverse;
+  }
+  @keyframes barchart {
+	to {
+	  height: 0%;
+	  opacity: 0;
+	}
+  }
+  /* Filters Section */
+/* Adjust the #filters section to align items */
+/* Position the Sign-In button at the top-right of the page */
+button#sign-in {
+    background: #007BFF; /* Formal Blue */
+    color: #fff;
+    font-size: 18px; /* Larger text for better visibility */
+    font-weight: bold; /* Bold text to make it stand out */
+    padding: 15px 30px; /* Increased padding for a larger button */
+    border: none;
+    border-radius: 20px; /* Slightly rounded corners */
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    position: absolute;
+    top: 20px; /* Adjusted for better spacing */
+    right: 20px; /* Adjusted for better positioning */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+button#sign-in:hover {
+    background: #0056b3; /* Darker blue on hover */
+    transform: scale(1.1); /* Slightly larger on hover for effect */
+}
+
+
+/* Filters Section Styling */
+/* Apply Button Styling */
+ /* Reduce gap to fit on small screens */
+  /* Filters Section */
+#filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.filter-group {
+    flex: 1 1 250px; /* Ensure each filter takes up at least 250px */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#apply-filters {
+    background: #007BFF;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px; /* Rounded button */
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s, transform 0.2s;
+}
+
+#apply-filters:hover {
+    background: #0056b3;
+    transform: scale(1.05); /* Button grows slightly on hover */
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+select:hover, input:hover {
+    border-color: #007BFF;
+}
+
+select, input {
+    background-color: #f0f8ff; /* Light blue for formal appearance */
+}
+
+select:focus, input:focus {
+    outline: none;
+    border-color: #1619e7;
+}
+
+/* Responsive design for smaller screens */
+@media screen and (max-width: 601px) {
+    #filters {
+        padding: 15px;
+        gap: 10px; /* Reduce gap for small screens */
+    }
+
+    .filter-group {
+        width: 100%; /* Ensure filters take full width on mobile */
+    }
+}

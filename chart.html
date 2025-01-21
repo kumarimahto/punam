@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Data Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <style>
+        /* Ensure the canvas is larger */
+        #lineChart {
+            width: 180% !important;
+            height: 550px !important; /* You can adjust the height as needed */
+        }
+        /* Position the Sign-In button at the top-right of the page */
+        button#sign-in {
+            background: #007BFF; /* Formal Blue */
+            color: #fff;
+            font-size: 18px; /* Larger text for better visibility */
+            font-weight: bold; /* Bold text to make it stand out */
+            padding: 15px 30px; /* Increased padding for a larger button */
+            border: none;
+            border-radius: 20px; /* Slightly rounded corners */
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            position: absolute;
+            top: 20px; /* Adjusted for better spacing */
+            right: 20px; /* Adjusted for better positioning */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        }
+
+        button#sign-in:hover {
+            background: #0056b3; /* Darker blue on hover */
+            transform: scale(1.1); /* Slightly larger on hover for effect */
+        }
+
+        /* Filters Section Styling */
+        /* Apply Button Styling */
+        #filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: flex-start;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .filter-group {
+            flex: 1 1 250px; /* Ensure each filter takes up at least 250px */
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        #apply-filters {
+            background: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px; /* Rounded button */
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        #apply-filters:hover {
+            background: #0056b3;
+            transform: scale(1.05); /* Button grows slightly on hover */
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+
+        select:hover, input:hover {
+            border-color: #007BFF;
+        }
+
+        select, input {
+            background-color: #f0f8ff; /* Light blue for formal appearance */
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #1619e7;
+        }
+
+        /* Responsive design for smaller screens */
+        @media screen and (max-width: 601px) {
+            #filters {
+                padding: 15px;
+                gap: 10px; /* Reduce gap for small screens */
+            }
+
+            .filter-group {
+                width: 100%; /* Ensure filters take full width on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sign-In Button -->
+    <button id="sign-in">Sign In</button>
+
+    <header>
+        <h1>Interactive Data Dashboard</h1>
+    </header>
+
+    <!-- Filters Section -->
+    <section id="filters">
+        <div class="filter-group">
+            <label for="age-group">Age Group:</label>
+            <select id="age-group">
+                <option value=">25">&gt;25</option>
+                <option value="15-25">15-25</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" value="2025-01-01">
+        </div>
+        <div class="filter-group">
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date">
+        </div>
+        <div class="filter-group">
+            <button id="apply-filters">Apply Filters</button>
+        </div>
+    </section>
+    
+
+
+    <!-- Bar Chart Section -->
+    <table class="chart mobile-optimised">
+        <caption>Monthly Data Analysis</caption>
+        <thead>
+            <tr>
+                <th scope="col">Jan</th>
+                <th scope="col">Feb</th>
+                <th scope="col">Mar</th>
+                <th scope="col">Apr</th>
+                <th scope="col">May</th>
+                <th scope="col">Jun</th>
+                <th scope="col">Jul</th>
+                <th scope="col">Aug</th>
+                <th scope="col">Sep</th>
+                <th scope="col">Oct</th>
+                <th scope="col">Nov</th>
+                <th scope="col">Dec</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width:70%" data-th="January" class="jan"><span style="height:70%"><b>70%</b></span></td>
+                <td style="width:0%" data-th="February" class="feb"><span style="height:0%"><b>0%</b></span></td>
+                <td style="width:20%" data-th="March" class="mar"><span style="height:20%"><b>20%</b></span></td>
+                <td style="width:40%" data-th="April" class="apr"><span style="height:40%"><b>40%</b></span></td>
+                <td style="width:100%" data-th="May" class="may"><span style="height:100%"><b>100%</b></span></td>
+                <td style="width:15%" data-th="June" class="jun"><span style="height:15%"><b>15%</b></span></td>
+                <td style="width:60%" data-th="July" class="jul"><span style="height:60%"><b>60%</b></span></td>
+                <td style="width:55%" data-th="August" class="aug"><span style="height:55%"><b>55%</b></span></td>
+                <td style="width:35%" data-th="September" class="sep"><span style="height:35%"><b>35%</b></span></td>
+                <td style="width:90%" data-th="October" class="oct"><span style="height:90%"><b>90%</b></span></td>
+                <td style="width:20%" data-th="November" class="nov"><span style="height:20%"><b>20%</b></span></td>
+                <td style="width:50%" data-th="December" class="dec"><span style="height:50%"><b>50%</b></span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Line Chart Section -->
+   <!-- Line Chart Section -->
+<div style="width:100%;max-width:800px;margin:50px auto;text-align:center;">
+    <canvas id="lineChart"></canvas>
+</div>
+
+
+    <script>
+        const xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+        const yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+
+        new Chart("lineChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    label: "Performance Data",
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(255,0,0,1.0)", // Line color (red)
+                    borderColor: "rgba(255,0,0,1.0)", // Line border color (red)
+                    borderWidth: 2,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: true },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'X Values'
+                        },
+                        ticks: {
+                            fontStyle: 'bold', // Make x-axis values bold
+                            fontColor: 'black' // You can change the color as well
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 6,
+                            max: 16,
+                            fontStyle: 'bold', // Make y-axis values bold
+                            fontColor: 'black' // You can change the color as well
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Y Values'
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            // Make the data point values bold in the tooltip
+                            return 'Value: ' + tooltipItem.yLabel.toFixed(2);
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
